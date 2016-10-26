@@ -133,7 +133,10 @@ def process_message(event_message):
         if not full_name:
             full_name = '%s.%s' % (service_name, domain)
 
-        ports = ['%s:%s=%s' % (name, ext_port, service_port) for name in full_name.split(',')]
+        ports = []
+        for name in full_name.split(','):
+          for ext in ext_port.split(','):
+            ports.append(name+":"+ext+"="+service_port)
 
         return {
             'serviceId': service['id'],
